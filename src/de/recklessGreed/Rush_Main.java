@@ -1,6 +1,8 @@
 package de.recklessGreed;
 
 import org.bukkit.*;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -60,5 +62,38 @@ public class Rush_Main extends JavaPlugin
             if(player.hasMetadata("ingame")) player.removeMetadata("ingame", Rush_Main.getInstance());
             player.teleport(spawnLoc);
         }
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
+    {
+        if(command.getName().equals("addToWL"))
+        {
+            return addPlayersToWhitelist(args);
+        }
+        else if (command.getName().equals("clearWL"))
+        {
+            return clearWL();
+        }
+        else if(command.getName().equals("newgame"))
+        {
+            return newGame();
+        }
+        return super.onCommand(sender, command, label, args);
+    }
+
+    private boolean addPlayersToWhitelist(String[] args)
+    {
+        return true;
+    }
+
+    private boolean clearWL()
+    {
+        return true;
+    }
+
+    private boolean newGame()
+    {
+        return true;
     }
 }
