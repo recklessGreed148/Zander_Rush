@@ -4,9 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
@@ -18,8 +20,7 @@ public class Rush_Listeners implements Listener
 {
     Rush_Main classMain;
 
-
-    Villager blocks;
+    Villager blocks = null;
     MerchantRecipe sandstone;
     MerchantRecipe endstone;
     MerchantRecipe woodPickaxe;
@@ -30,7 +31,7 @@ public class Rush_Listeners implements Listener
     MerchantRecipe goldaxe;
 
 
-    Villager armor;
+    Villager armor = null;
     MerchantRecipe helmet;
     MerchantRecipe leggings;
     MerchantRecipe boots;
@@ -41,7 +42,7 @@ public class Rush_Listeners implements Listener
     MerchantRecipe firework;
 
 
-    Villager swords;
+    Villager swords = null;
     MerchantRecipe sword1;
     MerchantRecipe sword2;
     MerchantRecipe sword3;
@@ -52,7 +53,7 @@ public class Rush_Listeners implements Listener
     MerchantRecipe hopper;
 
 
-    Villager extras;
+    Villager extras = null;
     MerchantRecipe bow1;
     MerchantRecipe bow2;
     MerchantRecipe bow3;
@@ -91,12 +92,16 @@ public class Rush_Listeners implements Listener
     private void createRecipe()
     {
         ItemStack bronze = new ItemStack(Material.CLAY_BRICK);
-        ItemStack silver = new ItemStack(Material.IRON_BARDING);
-        ItemStack gold = new ItemStack(Material.GOLD_BARDING);
+        ItemStack silver = new ItemStack(Material.IRON_INGOT);
+        ItemStack gold = new ItemStack(Material.GOLD_INGOT);
         sandstone = new MerchantRecipe(new ItemStack(Material.SANDSTONE,4),Integer.MAX_VALUE);
         bronze.setAmount(1);
         sandstone.addIngredient(bronze);
+    }
 
-
+    @EventHandler
+    public void PlayerJoinEvent(PlayerJoinEvent event)
+    {
+        if(extras == null) createRecipe();
     }
 }
