@@ -79,20 +79,28 @@ public class Rush_Listeners implements Listener
         Player player = event.getPlayer();
         if (event.getRightClicked() instanceof Villager)
         {
+            Villager villager = (Villager) event.getRightClicked();
             player.closeInventory();
-            openInventory(player, "test01");
+
+            if (villager.getName().equals("Schneider"))
+            {
+                player.openMerchant(armor, true);
+            }
+            else if (villager.getName().equals("Baumeister"))
+            {
+                player.openMerchant(blocks, true);
+            }
+            else if (villager.getName().equals("Krieger"))
+            {
+                player.openMerchant(swords, true);
+            }
+            else if (villager.getName().equals("Extras"))
+            {
+                player.openMerchant(extras, true);
+            }
+
         }
     }
-
-    public void openInventory(Player player, String name)
-    {
-        if (name.equals("test01"))
-        {
-
-            return;
-        }
-    }
-
 
     private void createRecipe(Player p)
     {
@@ -354,5 +362,6 @@ public class Rush_Listeners implements Listener
     {
         if(blocks == null || armor  == null || swords == null  || extras == null)
             createRecipe(event.getPlayer());
+
     }
 }
