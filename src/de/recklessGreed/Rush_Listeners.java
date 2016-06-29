@@ -18,6 +18,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
 
+import java.util.LinkedList;
+
 /**
  * Created by dawen on 03.06.2016.
  */
@@ -120,14 +122,14 @@ public class Rush_Listeners implements Listener
 
         //4 Bronze -> 1 Wood Pickaxe
         ItemStack woodPickItem = new ItemStack(Material.WOOD_PICKAXE,1);
-        woodPickItem.addEnchantment(Enchantment.DIG_SPEED, 1);
+        woodPickItem.addUnsafeEnchantment(Enchantment.DIG_SPEED, 1);
         woodPickaxe = new MerchantRecipe(woodPickItem, Integer.MAX_VALUE);
         bronze.setAmount(4);
         woodPickaxe.addIngredient(bronze);
 
         //2 Silver -> 1 Stone Pickaxe
         ItemStack stonePickItem = new ItemStack(Material.STONE_PICKAXE,1);
-        stonePickItem.addEnchantment(Enchantment.DIG_SPEED, 2);
+        stonePickItem.addUnsafeEnchantment(Enchantment.DIG_SPEED, 2);
         stonePickaxe = new MerchantRecipe(stonePickItem,Integer.MAX_VALUE);
         silver.setAmount(2);
         stonePickaxe.addIngredient(silver);
@@ -140,7 +142,7 @@ public class Rush_Listeners implements Listener
 
         //1 Gold -> 1 Iron Pickaxe
         ItemStack ironPickItem = new ItemStack(Material.IRON_PICKAXE,1);
-        ironPickItem.addEnchantment(Enchantment.DIG_SPEED, 3);
+        ironPickItem.addUnsafeEnchantment(Enchantment.DIG_SPEED, 3);
         ironPickaxe = new MerchantRecipe(ironPickItem ,Integer.MAX_VALUE);
 
         //4 Bronze -> 2 Glowstone
@@ -158,52 +160,52 @@ public class Rush_Listeners implements Listener
 
         //1 Bronze -> Leather Helmet
         ItemStack helmetItem = new ItemStack(Material.LEATHER_HELMET, 1);
-        helmetItem.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL,1);
+        helmetItem.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL,1);
         helmet = new MerchantRecipe(helmetItem,Integer.MAX_VALUE);
         bronze.setAmount(1);
         helmet.addIngredient(bronze);
 
         //1 Bronze -> Leather Leggings
         ItemStack leggingsItem = new ItemStack(Material.LEATHER_LEGGINGS, 1);
-        leggingsItem.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL,1);
+        leggingsItem.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL,1);
         leggings = new MerchantRecipe(leggingsItem,Integer.MAX_VALUE);
         bronze.setAmount(1);
         leggings.addIngredient(bronze);
 
         //1 Bronze -> Leather Boots
         ItemStack bootsItem = new ItemStack(Material.LEATHER_BOOTS, 1);
-        bootsItem.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL,1);
+        bootsItem.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL,1);
         boots = new MerchantRecipe(bootsItem,Integer.MAX_VALUE);
         bronze.setAmount(1);
         boots.addIngredient(bronze);
 
         //1 Silver -> Chain Plate
         ItemStack chain1Item = new ItemStack(Material.CHAINMAIL_CHESTPLATE, 1);
-        chain1Item.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL,1);
+        chain1Item.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL,1);
         plate1 = new MerchantRecipe(chain1Item,Integer.MAX_VALUE);
         silver.setAmount(1);
         plate1.addIngredient(silver);
 
         //3 Silver -> Chain Plate II
         ItemStack chain2Item = new ItemStack(Material.CHAINMAIL_CHESTPLATE, 1);
-        chain2Item.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL,1);
+        chain2Item.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL,1);
         plate2 = new MerchantRecipe(chain2Item,Integer.MAX_VALUE);
         silver.setAmount(3);
         plate2.addIngredient(silver);
 
         //7 Silver -> Chain Plate III
         ItemStack chain3Item = new ItemStack(Material.CHAINMAIL_CHESTPLATE, 1);
-        chain3Item.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL,1);
+        chain3Item.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL,1);
         plate3 = new MerchantRecipe(chain3Item,Integer.MAX_VALUE);
         silver.setAmount(7);
         plate3.addIngredient(silver);
 
         //10 Iron, 1 Helmet -> OP Pumpkin
         ItemStack pumpkinItem = new ItemStack(Material.PUMPKIN, 1);
-        pumpkinItem.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL,1);
-        pumpkinItem.addEnchantment(Enchantment.PROTECTION_FIRE,5);
-        pumpkinItem.addEnchantment(Enchantment.THORNS,1);
-        pumpkinItem.addEnchantment(Enchantment.PROTECTION_EXPLOSIONS,5);
+        pumpkinItem.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL,1);
+        pumpkinItem.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE,5);
+        pumpkinItem.addUnsafeEnchantment(Enchantment.THORNS,1);
+        pumpkinItem.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS,5);
         pumpkin = new MerchantRecipe(pumpkinItem,Integer.MAX_VALUE);
 
         //1 Gold -> 1 Firework
@@ -213,22 +215,22 @@ public class Rush_Listeners implements Listener
 
         //1 Silver -> Gold Sword I
         ItemStack sword1Item = new ItemStack(Material.GOLD_SWORD, 1);
-        sword1Item.addEnchantment(Enchantment.DAMAGE_ALL,1);
+        sword1Item.addUnsafeEnchantment(Enchantment.DAMAGE_ALL,1);
         sword1 = new MerchantRecipe(sword1Item ,Integer.MAX_VALUE);
         silver.setAmount(1);
         sword1.addIngredient(silver);
 
         //3 Silver -> Gold Sword II
         ItemStack sword2Item = new ItemStack(Material.GOLD_SWORD, 1);
-        sword2Item.addEnchantment(Enchantment.DAMAGE_ALL,2);
+        sword2Item.addUnsafeEnchantment(Enchantment.DAMAGE_ALL,2);
         sword2 = new MerchantRecipe(sword2Item ,Integer.MAX_VALUE);
         silver.setAmount(3);
         sword2.addIngredient(silver);
 
         //7 Silver -> Gold Sword III
         ItemStack sword3Item = new ItemStack(Material.GOLD_SWORD, 1);
-        sword3Item.addEnchantment(Enchantment.DAMAGE_ALL,2);
-        sword3Item.addEnchantment(Enchantment.KNOCKBACK,1);
+        sword3Item.addUnsafeEnchantment(Enchantment.DAMAGE_ALL,2);
+        sword3Item.addUnsafeEnchantment(Enchantment.KNOCKBACK,1);
         sword3 = new MerchantRecipe(sword3Item ,Integer.MAX_VALUE);
         silver.setAmount(7);
         sword3.addIngredient(silver);
@@ -262,23 +264,23 @@ public class Rush_Listeners implements Listener
 
         //3 Gold -> Bow I
         ItemStack bow1Item = new ItemStack(Material.BOW, 1);
-        bow1Item.addEnchantment(Enchantment.ARROW_INFINITE,1);
+        bow1Item.addUnsafeEnchantment(Enchantment.ARROW_INFINITE,1);
         bow1 = new MerchantRecipe(bow1Item,Integer.MAX_VALUE);
         gold.setAmount(3);
         bow1.addIngredient(gold);
 
         //7 Gold -> Bow II
         ItemStack bow2Item = new ItemStack(Material.BOW, 1);
-        bow2Item.addEnchantment(Enchantment.ARROW_INFINITE,1);
-        bow2Item.addEnchantment(Enchantment.ARROW_DAMAGE,1);
+        bow2Item.addUnsafeEnchantment(Enchantment.ARROW_INFINITE,1);
+        bow2Item.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE,1);
         bow2 = new MerchantRecipe(bow2Item,Integer.MAX_VALUE);
         gold.setAmount(7);
         bow2.addIngredient(gold);
 
         //12 Gold -> Bow III
         ItemStack bow3Item = new ItemStack(Material.BOW, 1);
-        bow3Item.addEnchantment(Enchantment.ARROW_INFINITE,1);
-        bow3Item.addEnchantment(Enchantment.ARROW_DAMAGE,2);
+        bow3Item.addUnsafeEnchantment(Enchantment.ARROW_INFINITE,1);
+        bow3Item.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE,2);
         bow3 = new MerchantRecipe(bow3Item,Integer.MAX_VALUE);
         gold.setAmount(12);
         bow3.addIngredient(gold);
@@ -311,48 +313,56 @@ public class Rush_Listeners implements Listener
         Location loc = new Location(p.getWorld(), 0,0,0);
 
         blocks = (Villager) p.getWorld().spawnEntity(loc, EntityType.VILLAGER);
-        blocks.setRecipe(0, sandstone);
-        blocks.setRecipe(1, endstone);
-        blocks.setRecipe(2, woodPickaxe);
-        blocks.setRecipe(3, stonePickaxe);
-        blocks.setRecipe(4, stairs);
-        blocks.setRecipe(5, ironPickaxe);
-        blocks.setRecipe(6, glowstone);
-        blocks.setRecipe(7, goldaxe);
+        LinkedList<MerchantRecipe> blocksList = new LinkedList<>();
+        blocksList.add(sandstone);
+        blocksList.add(endstone);
+        blocksList.add(woodPickaxe);
+        blocksList.add(stonePickaxe);
+        blocksList.add(stairs);
+        blocksList.add(ironPickaxe);
+        blocksList.add(glowstone);
+        blocksList.add(goldaxe);
+        blocks.setRecipes(blocksList);
         blocks.remove();
 
         armor  = (Villager) p.getWorld().spawnEntity(loc, EntityType.VILLAGER);
-        armor.setRecipe(0,helmet);
-        armor.setRecipe(1,leggings);
-        armor.setRecipe(2,boots);
-        armor.setRecipe(3,plate1);
-        armor.setRecipe(4,plate2);
-        armor.setRecipe(5,plate3);
-        armor.setRecipe(6,pumpkin);
-        armor.setRecipe(7,firework);
+        LinkedList<MerchantRecipe> armorList = new LinkedList<>();
+        armorList.add(helmet);
+        armorList.add(leggings);
+        armorList.add(boots);
+        armorList.add(plate1);
+        armorList.add(plate2);
+        armorList.add(plate3);
+        armorList.add(pumpkin);
+        armorList.add(firework);
+        armor.setRecipes(armorList);
         armor.remove();
 
 
         swords = (Villager) p.getWorld().spawnEntity(loc, EntityType.VILLAGER);
-        swords.setRecipe(0,sword1);
-        swords.setRecipe(1,sword2);
-        swords.setRecipe(2,sword3);
-        swords.setRecipe(3,tnt);
-        swords.setRecipe(4,flintASteel);
-        swords.setRecipe(5,chest);
-        swords.setRecipe(6,redChest);
-        swords.setRecipe(7,hopper);
+        LinkedList<MerchantRecipe> swordsList = new LinkedList<>();
+        swordsList.add(sword1);
+        swordsList.add(sword2);
+        swordsList.add(sword3);
+        swordsList.add(tnt);
+        swordsList.add(flintASteel);
+        swordsList.add(chest);
+        swordsList.add(redChest);
+        swordsList.add(hopper);
+        swords.setRecipes(swordsList);
         swords.remove();
 
         extras = (Villager) p.getWorld().spawnEntity(loc, EntityType.VILLAGER);
-        extras.setRecipe(0, bow1);
-        extras.setRecipe(1, bow2);
-        extras.setRecipe(2, bow2);
-        extras.setRecipe(3, arrow);
-        extras.setRecipe(4, beef);
-        extras.setRecipe(5, goldApple);
-        extras.setRecipe(6, cobweb);
-        extras.setRecipe(7, extraGold);
+        LinkedList<MerchantRecipe> extrasList = new LinkedList<>();
+        extrasList.add( bow1);
+        extrasList.add( bow2);
+        extrasList.add( bow2);
+        extrasList.add( arrow);
+        extrasList.add( beef);
+        extrasList.add( goldApple);
+        extrasList.add( cobweb);
+        extrasList.add( extraGold);
+        extras.setRecipes(extrasList);
         extras.remove();
 
     }
@@ -361,13 +371,12 @@ public class Rush_Listeners implements Listener
     public void PlayerJoinEvent(PlayerJoinEvent event)
     {
         Player player = event.getPlayer();
-        if(blocks == null || armor  == null || swords == null  || extras == null)
-            createRecipe(player);
+        //if(blocks == null || armor  == null || swords == null  || extras == null)
+          //  createRecipe(player);
 
         if(player.getWorld().getName() != "lobby")
         {
             player.teleport(classMain.getSpawnLobbyLoc());
         }
-
     }
 }

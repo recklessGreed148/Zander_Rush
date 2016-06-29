@@ -1,9 +1,9 @@
 Lobby:
-  name: world
+  name: lobby
 normalSpawn:
-  x: -124.0
-  y: 4.0
-  z: -277.0
+  x: 0.0
+  y: 53.0
+  z: 0.0
 spawnRed:
   x: -3
   y: 53
@@ -21,7 +21,7 @@ bedBlue:
   y: 53
   z: 60
 RushWorld:
-  name: rushMap
+  name: gamemap
 WLPLayers:
   1: recklessGreed_
   2: ZanderLP

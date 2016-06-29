@@ -24,6 +24,7 @@ public class Rush_Main extends JavaPlugin
      */
 
     World currentWorld = null;
+    String ccGreen = ChatColor.GREEN + "";
     String ccRed = ChatColor.RED + "";
     String onlyPlayer = ccRed + "This Command is only useable as a Player.";
     String noPermissions = ccRed + "TeamspeakVoice: Insufficient Permissions";
@@ -161,30 +162,24 @@ public class Rush_Main extends JavaPlugin
     {
         if (new File(this.getDataFolder(), "config.yml").exists())
         {
-            getConfig().options().copyDefaults(true);
-            saveConfig();
+            this.getServer().getConsoleSender().sendMessage(ccGreen + "Found config.yml!");
         }
         else
         {
-            this.getServer().getConsoleSender().sendMessage(ccRed + "Missing config.yml");
-            this.getServer().shutdown();
+            this.getServer().getConsoleSender().sendMessage(ccRed + "Missing config.yml | Creating one!");
+            getConfig().options().copyDefaults(true);
+            saveConfig();
+            //this.getServer().shutdown();
         }
 
         String worldName = (String) config.get("Lobby.name");
         File srcFolder = new File("./template");
         File destFolder = new File("./gamemap");
-        try
-        {
-            copyFolder(srcFolder, destFolder);
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        World lobbyWorld = Bukkit.getServer().getWorld(worldName);
-        World gameWorld = Bukkit.getServer().getWorld(destFolder.getName());
+        World lobbyWorld = Bukkit.createWorld(new WorldCreator(worldName));
+        World gameWorld = Bukkit.createWorld(new WorldCreator("gamemap"));
 
         spawnLobbyLoc  = new Location(lobbyWorld, config.getDouble("normalSpawn.x"), config.getDouble("normalSpawn.y"), config.getDouble("normalSpawn.z"));
+        System.out.println(spawnLobbyLoc.getX() + " , " + spawnLobbyLoc.getY() + " , " + spawnLobbyLoc.getZ());
         spawnRed  = new Location(gameWorld, config.getDouble("spawnRed.x"), config.getDouble("spawnRed.y"), config.getDouble("spawnRed.z"));
         spawnBlue  = new Location(gameWorld, config.getDouble("spawnBlue.x"), config.getDouble("spawnBlue.y"), config.getDouble("spawnBlue.z"));
         bedLocRed  = new Location(gameWorld, config.getDouble("bedRed.x"), config.getDouble("bedRed.y"), config.getDouble("bedRed.z"));
@@ -201,8 +196,6 @@ public class Rush_Main extends JavaPlugin
             if (!dest.exists())
             {
                 dest.mkdir();
-                System.out.println("Directory copied from "
-                        + src + "  to " + dest);
             }
 
             //list all the directory contents
@@ -236,7 +229,6 @@ public class Rush_Main extends JavaPlugin
 
             in.close();
             out.close();
-            System.out.println("File copied from " + src + " to " + dest);
         }
     }
 }
