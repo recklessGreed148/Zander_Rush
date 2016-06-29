@@ -360,8 +360,14 @@ public class Rush_Listeners implements Listener
     @EventHandler
     public void PlayerJoinEvent(PlayerJoinEvent event)
     {
+        Player player = event.getPlayer();
         if(blocks == null || armor  == null || swords == null  || extras == null)
-            createRecipe(event.getPlayer());
+            createRecipe(player);
+
+        if(player.getWorld().getName() != "lobby")
+        {
+            player.teleport(classMain.getSpawnLobbyLoc());
+        }
 
     }
 }

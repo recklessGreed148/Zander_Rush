@@ -3,11 +3,12 @@ package de.recklessGreed;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
+import java.io.*;
 
 /**
  * Created by dawen on 03.06.2016.
@@ -16,6 +17,7 @@ public class Rush_Main extends JavaPlugin
 {
     private static Rush_Main instance;
     Listener events;
+    FileConfiguration config = this.getConfig();
 
     /*
      * Custom defined Errors:
@@ -34,7 +36,10 @@ public class Rush_Main extends JavaPlugin
     private Location bedLocRed;
     private Location bedLocBlue;
 
-    public static Rush_Main getInstance(){return instance;}
+    public static Rush_Main getInstance()
+    {
+        return instance;
+    }
 
 
     @Override
@@ -61,10 +66,10 @@ public class Rush_Main extends JavaPlugin
         Bukkit.getServer().getWorlds().get(0).setTime(6800);
         Bukkit.getServer().getWorlds().get(0).setDifficulty(Difficulty.EASY);
         readConfig();
-        for(Player player : Bukkit.getOnlinePlayers())
+        for (Player player : Bukkit.getOnlinePlayers())
         {
-            if(currentWorld == null) currentWorld = player.getWorld();
-            if(player.hasMetadata("ingame")) player.removeMetadata("ingame", Rush_Main.getInstance());
+            if (currentWorld == null) currentWorld = player.getWorld();
+            if (player.hasMetadata("ingame")) player.removeMetadata("ingame", Rush_Main.getInstance());
             player.teleport(spawnLobbyLoc);
         }
     }
@@ -72,7 +77,7 @@ public class Rush_Main extends JavaPlugin
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
-        if(command.getName().equals("addToWL"))
+        if (command.getName().equals("addToWL"))
         {
             return addPlayersToWhitelist(args);
         }
@@ -80,7 +85,7 @@ public class Rush_Main extends JavaPlugin
         {
             return clearWL();
         }
-        else if(command.getName().equals("newgame"))
+        else if (command.getName().equals("newgame"))
         {
             return newGame();
         }
@@ -95,6 +100,56 @@ public class Rush_Main extends JavaPlugin
     private boolean clearWL()
     {
         return true;
+    }
+
+    public Location getSpawnLobbyLoc()
+    {
+        return spawnLobbyLoc;
+    }
+
+    public void setSpawnLobbyLoc(Location spawnLobbyLoc)
+    {
+        this.spawnLobbyLoc = spawnLobbyLoc;
+    }
+
+    public Location getSpawnRed()
+    {
+        return spawnRed;
+    }
+
+    public void setSpawnRed(Location spawnRed)
+    {
+        this.spawnRed = spawnRed;
+    }
+
+    public Location getSpawnBlue()
+    {
+        return spawnBlue;
+    }
+
+    public void setSpawnBlue(Location spawnBlue)
+    {
+        this.spawnBlue = spawnBlue;
+    }
+
+    public Location getBedLocRed()
+    {
+        return bedLocRed;
+    }
+
+    public void setBedLocRed(Location bedLocRed)
+    {
+        this.bedLocRed = bedLocRed;
+    }
+
+    public Location getBedLocBlue()
+    {
+        return bedLocBlue;
+    }
+
+    public void setBedLocBlue(Location bedLocBlue)
+    {
+        this.bedLocBlue = bedLocBlue;
     }
 
     private boolean newGame()
@@ -113,6 +168,75 @@ public class Rush_Main extends JavaPlugin
         {
             this.getServer().getConsoleSender().sendMessage(ccRed + "Missing config.yml");
             this.getServer().shutdown();
+        }
+
+        String worldName = (String) config.get("Lobby.name");
+        File srcFolder = new File("./template");
+        File destFolder = new File("./gamemap");
+        try
+        {
+            copyFolder(srcFolder, destFolder);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        World lobbyWorld = Bukkit.getServer().getWorld(worldName);
+        World gameWorld = Bukkit.getServer().getWorld(destFolder.getName());
+
+        spawnLobbyLoc  = new Location(lobbyWorld, config.getDouble("normalSpawn.x"), config.getDouble("normalSpawn.y"), config.getDouble("normalSpawn.z"));
+        spawnRed  = new Location(gameWorld, config.getDouble("spawnRed.x"), config.getDouble("spawnRed.y"), config.getDouble("spawnRed.z"));
+        spawnBlue  = new Location(gameWorld, config.getDouble("spawnBlue.x"), config.getDouble("spawnBlue.y"), config.getDouble("spawnBlue.z"));
+        bedLocRed  = new Location(gameWorld, config.getDouble("bedRed.x"), config.getDouble("bedRed.y"), config.getDouble("bedRed.z"));
+        bedLocBlue  = new Location(gameWorld, config.getDouble("bedBlue.x"), config.getDouble("bedBlue.y"), config.getDouble("bedBlue.z"));
+    }
+
+    public static void copyFolder(File src, File dest) throws IOException
+    {
+
+        if (src.isDirectory())
+        {
+
+            //if directory not exists, create it
+            if (!dest.exists())
+            {
+                dest.mkdir();
+                System.out.println("Directory copied from "
+                        + src + "  to " + dest);
+            }
+
+            //list all the directory contents
+            String files[] = src.list();
+
+            for (String file : files)
+            {
+                //construct the src and dest file structure
+                File srcFile = new File(src, file);
+                File destFile = new File(dest, file);
+                //recursive copy
+                copyFolder(srcFile, destFile);
+            }
+
+        }
+        else
+        {
+            //if file, then copy it
+            //Use bytes stream to support all file types
+            InputStream in = new FileInputStream(src);
+            OutputStream out = new FileOutputStream(dest);
+
+            byte[] buffer = new byte[1024];
+
+            int length;
+            //copy the file content in bytes
+            while ((length = in.read(buffer)) > 0)
+            {
+                out.write(buffer, 0, length);
+            }
+
+            in.close();
+            out.close();
+            System.out.println("File copied from " + src + " to " + dest);
         }
     }
 }
